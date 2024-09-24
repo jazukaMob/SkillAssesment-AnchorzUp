@@ -18,12 +18,17 @@ def generate_paths(x_, y_):
     unique_paths = set(itertools.permutations(steps))
 
     paths_str = []
-    for path in unique_paths:
-        paths_str.append("".join(path))
+    pattern = r'(NNN(?!N))|(EEE(?!E))'
 
-    print("Number of valid paths: {}".format(len(unique_paths)))
+    for path in unique_paths:
+        path_str = ''.join(path)
+        if not re.search(pattern, path_str):
+            paths_str.append(path_str)
+
+    valid_paths = len(paths_str)
+    print("Number of valid paths: {}".format(valid_paths))
     print("Routes for each valid path: " + ", ".join(paths_str) + "\n")
-    return len(unique_paths)
+    return valid_paths
 
 
 with open("input.txt", "r+") as f:

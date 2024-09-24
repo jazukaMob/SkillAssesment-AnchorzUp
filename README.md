@@ -1,4 +1,6 @@
-# Technical Skill Assessment for AnchorzUp
+# Technical Skill Assessment - AnchorzUp
+
+Author: Endrit Sadriu
 
 ## Short Description
 
