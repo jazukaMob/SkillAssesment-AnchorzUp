@@ -1,0 +1,8 @@
+version: '3'
+services:
+  python-app:
+    build: .
+    volumes:
+      - ./input.txt:/app/input.txt
+    stdin_open: true
+    tty: true
