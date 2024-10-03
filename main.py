@@ -18,12 +18,10 @@ def generate_paths(x_, y_):
     unique_paths = set(itertools.permutations(steps))
 
     paths_str = []
-    pattern = r'(NNN(?!N))|(EEE(?!E))'
 
+    print(f"Input: {x, y}")
     for path in unique_paths:
-        path_str = ''.join(path)
-        if not re.search(pattern, path_str):
-            paths_str.append(path_str)
+        paths_str.append(''.join(path))
 
     valid_paths = len(paths_str)
     print("Number of valid paths: {}".format(valid_paths))
