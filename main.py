@@ -1,5 +1,7 @@
-import itertools
+import math
 import re
+
+PRINT_STEPS = False
 
 
 def validate_line(input_str):
@@ -25,20 +27,23 @@ def generate_sequences_recursive(x_, y_, path='', sequences=None):
 
 
 def generate_paths(x_, y_):
-    unique_paths = generate_sequences_recursive(x_, y_)
-    exclude_pattern = r"(?<!N)N{3}(?!N)|(?<!E)E{3}(?!E)"
-
-    paths_str = []
-
-    print(f"Input: {x, y}")
-    for path in unique_paths:
-        if re.search(exclude_pattern, path):
-            continue
-        paths_str.append(path)
-
-    valid_paths = len(paths_str)
+    print(f"Input: {x_, y_}")
+    valid_paths = math.factorial(x + y) // (math.factorial(x) * math.factorial(y))
     print("Number of valid paths: {}".format(valid_paths))
-    print("Routes for each valid path: " + ", ".join(paths_str) + "\n")
+
+    if PRINT_STEPS:
+        unique_paths = generate_sequences_recursive(x_, y_)
+        exclude_pattern = r"(?<!N)N{3}(?!N)|(?<!E)E{3}(?!E)"
+
+        paths_str = []
+
+        for path in unique_paths:
+            if re.search(exclude_pattern, path):
+                valid_paths -= 1
+                continue
+            paths_str.append(path)
+
+        print("Routes for each valid path: " + ", ".join(paths_str) + "\n")
     return valid_paths
 
 
