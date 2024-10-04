@@ -12,21 +12,29 @@ def validate_line(input_str):
     return int(x), int(y)
 
 
+def generate_sequences_recursive(x_, y_, path='', sequences=None):
+    if sequences is None:
+        sequences = []
+    if x_ == 0 and y_ == 0:
+        sequences.append(path)
+    if x_ > 0:
+        generate_sequences_recursive(x_ - 1, y_, path + 'E', sequences)
+    if y_ > 0:
+        generate_sequences_recursive(x_, y_ - 1, path + 'N', sequences)
+    return sequences
+
+
 def generate_paths(x_, y_):
-    steps = ['E'] * x_ + ['N'] * y_
-
-    unique_paths = set(itertools.permutations(steps))
-
+    unique_paths = generate_sequences_recursive(x_, y_)
     exclude_pattern = r"(?<!N)N{3}(?!N)|(?<!E)E{3}(?!E)"
 
     paths_str = []
 
     print(f"Input: {x, y}")
     for path in unique_paths:
-        path_str = ''.join(path)
-        if re.search(exclude_pattern, path_str):
+        if re.search(exclude_pattern, path):
             continue
-        paths_str.append(path_str)
+        paths_str.append(path)
 
     valid_paths = len(paths_str)
     print("Number of valid paths: {}".format(valid_paths))
